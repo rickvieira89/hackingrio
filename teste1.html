@@ -1,0 +1,143 @@
+
+<html>
+<head>
+
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <style>
+    .container {
+        width: 100vw;
+         height: 100vh;
+           background: #6C7A89;
+         display: flex;
+         flex-direction: row;
+         justify-content: center;
+         align-items: center
+     }
+     .box {
+         width: 350px;
+         height: 500px;
+         background: #fff;
+     }
+     body {
+        margin: 0px;
+ }
+ </style>
+</head>
+<body>
+  <p style = "font-family:helvetica,courier,arial; font-size: 40px;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Klabin.svg/1200px-Klabin.svg.png" alt="some text" width=160 height=140>
+  Gestão de Resíduos Recicláveis
+</p><br>
+ <div class="container" style="text-align:center">
+     <div class="box">
+<div class="row">
+<form class="col s12" action="" method="post" >
+<p style = "font-family:helvetica,courier,arial;"> Dados para contato </p>
+  <div class="row">
+    <p>
+     <label>
+       <input name="reciclador" type="radio" checked />
+       <span>Reciclador</span>
+     </label>
+   </p>
+   <p>
+     <label>
+       <input name="consumidor" type="radio" />
+       <span>Consumidor</span>
+     </label>
+   </p>
+   <div class="input-field col s6" style="max-width: 500px;">
+     <br>
+     <i class="material-icons prefix">account_circle</i>
+  <label class="active" for="nome">Nome</label>
+  <input type="text" id="nome" name="nome" style="width: 250px" class="validate">
+</div>
+</div>
+<div class="row">
+   <div class="input-field col s6">
+        <i class="material-icons prefix">  local_phone</i>
+  <label class="active" for="tel">Telefone</label>
+  <input type="text" id="tel" name="tel" type="number" style="width: 250px" class="validate">
+</div>
+</div>
+ <div class="row">
+   <div class="input-field col s6">
+        <i class="material-icons prefix">contact_mail</i>
+  <label class="active" for="email">e-mail</label>
+  <input type="text" id="email" name="email" type="text" style="width: 250px"  class="validate">
+  <p id="local">Clique no botão para obter sua localização:</p>
+  <button onclick="getLocation()">Clique aqui</button>
+  <div id="mapholder"></div>
+</div>
+  </div>
+</div>
+
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script>
+var x=document.getElementById("local");
+function getLocation()
+  {
+  if (navigator.geolocation)
+    {
+    navigator.geolocation.getCurrentPosition(showPosition,showError);
+    }
+  else{x.innerHTML="Geolocalização não é suportada nesse browser.";}
+  }
+
+function showPosition(position)
+  {
+  lat=position.coords.latitude;
+  lon=position.coords.longitude;
+  latlon=new google.maps.LatLng(lat, lon)
+  mapholder=document.getElementById('mapholder')
+  mapholder.style.height='250px';
+  mapholder.style.width='500px';
+
+  var myOptions={
+  center:latlon,zoom:14,
+  mapTypeId:google.maps.MapTypeId.ROADMAP,
+  mapTypeControl:false,
+  navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
+  };
+  var map=new google.maps.Map(document.getElementById("mapholder"),myOptions);
+  var marker=new google.maps.Marker({position:latlon,map:map,title:"Você está Aqui!"});
+  }
+
+function showError(error)
+  {
+  switch(error.code)
+    {
+    case error.PERMISSION_DENIED:
+      x.innerHTML="Usuário rejeitou a solicitação de Geolocalização."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML="Localização indisponível."
+      break;
+    case error.TIMEOUT:
+      x.innerHTML="O tempo da requisição expirou."
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML="Algum erro desconhecido aconteceu."
+      break;
+    }
+  }
+</script>
+
+
+  <input type="submit" value="Enviar">
+</form>
+
+<br>
+<br>
+
+<p>Preserve o meio ambiente!</p>
+</div>
+</div>
+
+
+
+</body>
+</html>
